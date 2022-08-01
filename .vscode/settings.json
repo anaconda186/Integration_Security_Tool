@@ -1,0 +1,8 @@
+{
+    "cSpell.words": [
+        "ISSG"
+    ],
+    "python.linting.pylamaEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true
+}
