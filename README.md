@@ -5,18 +5,18 @@ This tool will add security to the ISSG of a selected Integration. It will read 
 ## TODO
 ### Functionality
 - [ ] User input Integration ID
-- [ ] Get Integration System
+- [ ] Get Integration System (Web Service)
 - [ ] If ISU and ISSG Found
     - [ ] Extract ISU
-    - [ ] Get ISU
+    - [ ] Get ISU (Web Service)
     - [ ] Extract ISSG
-    - [ ] Get ISSG
+    - [ ] Get ISSG (Web Service)
 - [ ] If ISU or ISSG not Found
-    - [ ] Create ISU
-    - [ ] Create ISSG
+    - [ ] Create ISU (Web Service)
+    - [ ] Create ISSG (Web Service)
 - [ ] Determine Required Security
     - [ ] EIB
-        - [ ] Run 'Report Field Security Report'
+        - [ ] Run 'Report Field Security Report' (RaaS)
             - [ ] Workday Delivered Fields
             - [ ] Calculated Fields?
             - [ ] If report doesn't yet exist create it
@@ -27,6 +27,6 @@ This tool will add security to the ISSG of a selected Integration. It will read 
     - [ ] Studio
         - [ ] TBD Placeholder
 - [ ] Add ISSG to Security
-    - [ ] get current Security Domain Config
+    - [ ] get current Security Domain Config (Web Service)
     - [ ] Add ISSG to current config (Do not overwrite anything!!!)
-    - [ ] Submit Security Domain
+    - [ ] Submit Security Domain (Web Service)
