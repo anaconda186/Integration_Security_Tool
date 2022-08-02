@@ -1,8 +1,13 @@
 {
     "cSpell.words": [
-        "ISSG"
+        "bsvc",
+        "ISSG",
+        "wsse"
     ],
     "python.linting.pylamaEnabled": false,
     "python.linting.flake8Enabled": true,
-    "python.linting.enabled": true
+    "python.linting.enabled": true,
+    "python.linting.flake8Args": [
+        "--ignore=E501",
+    ]
 }
