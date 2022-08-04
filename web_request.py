@@ -67,3 +67,78 @@ def create_issg(integration: dict[str, str], credentials: dict[str, str]) -> str
         </env:Body>
     </env:Envelope>"""
     return request
+
+
+# https://wd2-impl-services1.workday.com/ccx/service/invisors_dpt1/Core_Implementation_Service/v38.1
+def get_security_domain(security: str, credentials: dict[str, str]) -> str:
+    request: str = f"""<?xml version="1.0"?>
+    <env:Envelope
+        xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
+        xmlns:wd="urn:com.workday/bsvc">
+        xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+        <env:Header>
+            <wsse:Security env:mustUnderstand="1">
+                <wsse:UsernameToken>
+                    <wsse:Username>{credentials["username"]}@{credentials["tenant"]}</wsse:Username>
+                    <wsse:Password
+                        Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">{credentials["password"]}</wsse:Password>
+                </wsse:UsernameToken>
+            </wsse:Security>
+        </env:Header>
+        <env:Body>
+            <wd:Get_Domain_Security_Policy_Request wd:version="v38.1">
+                <wd:Request_References>
+                    <wd:Domain_Reference>
+                        <wd:ID wd:type="WID">{security}</wd:ID>
+                    </wd:Domain_Reference>
+                </wd:Request_References>
+                <wd:Response_Group>
+                    <wd:Include_Reference>true</wd:Include_Reference>
+                    <wd:Include_Domain_Security_Policy_Data>true</wd:Include_Domain_Security_Policy_Data>
+                </wd:Response_Group>
+            </wd:Get_Domain_Security_Policy_Request>
+        </env:Body>
+    </env:Envelope>"""
+    return request
+
+
+# https://wd2-impl-services1.workday.com/ccx/service/invisors_dpt1/Core_Implementation_Service/v38.1
+def put_security_domain(
+    security_domain: dict[str, str], credentials: dict[str, str]
+) -> str:
+    request: str = f"""<?xml version="1.0"?>
+    <env:Envelope
+        xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
+        xmlns:wd="urn:com.workday/bsvc">
+        <env:Header>
+            <wsse:Security env:mustUnderstand="1">
+                <wsse:UsernameToken>
+                    <wsse:Username>{credentials["username"]}@{credentials["tenant"]}</wsse:Username>
+                    <wsse:Password
+                        Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">{credentials["password"]}</wsse:Password>
+                </wsse:UsernameToken>
+            </wsse:Security>
+        </env:Header>
+        <env:Body>
+            <wd:Put_Domain_Security_Policies_Request wd:version="v38.1">
+                <wd:Domain_Security_Policy_Data>
+                    <wd:Domain_Reference>
+                        <!--Zero or more repetitions:-->
+                        <wd:ID wd:type="WID">7e67cc352b4710000fcb32d1dac80013</wd:ID>
+                    </wd:Domain_Reference>
+                    <wd:Domain_Name>Student Data: Academic Data</wd:Domain_Name>
+                    <wd:Disabled>1</wd:Disabled>
+                    <wd:Notes>Testing</wd:Notes>
+                    <wd:Security_Policy_Permission_Data>
+                        <wd:Security_Group_Reference>
+                            <wd:ID wd:type="WID">eee553af7f5f100b8ff149c37b730000</wd:ID>
+                        </wd:Security_Group_Reference>
+                        <wd:Security_Operation_Reference>
+                            <wd:ID wd:type="Security_Operation_ID">getUpdate_secOp</wd:ID>
+                        </wd:Security_Operation_Reference>
+                    </wd:Security_Policy_Permission_Data>
+                </wd:Domain_Security_Policy_Data>
+            </wd:Put_Domain_Security_Policies_Request>
+        </env:Body>
+    </env:Envelope>"""
+    return request
