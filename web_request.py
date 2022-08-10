@@ -1,3 +1,8 @@
+from email import header
+import requests
+import main
+
+
 def create_isu(integration: dict[str, str], credentials: dict[str, str]) -> str:
     request: str = f"""<?xml version="1.0" encoding="utf-8"?>
     <env:Envelope
@@ -145,6 +150,9 @@ def put_security_domain(
 
 
 def getIntSys(integration: dict[str, str], credentials: dict[str, str]) -> str:
+    import xml.etree.ElementTree as ET
+
+    header = {"content-type": "text/xml"}
     request: str = f"""<?xml version="1.0" encoding="utf-8"?>
     <soapenv:Envelope
         xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
@@ -153,9 +161,9 @@ def getIntSys(integration: dict[str, str], credentials: dict[str, str]) -> str:
         <soapenv:Header>
             <wsse:Security soapenv:mustUnderstand="1">
                 <wsse:UsernameToken>
-                    <wsse:Username>jhardy-impl@invisors_dpt1</wsse:Username>
+                    <wsse:Username>{credentials["username"]}@{credentials["tenant"]}</wsse:Username>
                     <wsse:Password
-                        Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">Straw_bag!90</wsse:Password>
+                        Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">{credentials["password"]}</wsse:Password>
                 </wsse:UsernameToken>
             </wsse:Security>
         </soapenv:Header>
@@ -167,4 +175,10 @@ def getIntSys(integration: dict[str, str], credentials: dict[str, str]) -> str:
             </bsvc:Integration_System_Get>
         </soapenv:Body>
     </soapenv:Envelope>"""
-    return request
+    r = requests.post(
+        "https://wd2-impl-services1.workday.com/ccx/service/invisors_dpt1/Integration/v39.0",
+        data=request,
+        headers=header,
+    )
+    requestText: str = r.text
+    return requestText
