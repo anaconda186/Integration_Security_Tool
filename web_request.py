@@ -170,7 +170,7 @@ def getIntegrationSystem(
         <soapenv:Body>
             <bsvc:Integration_System_Get bsvc:version="v39.0">
                 <bsvc:Integration_System_Reference>
-                    <bsvc:System_ID>INTXXXAGWTestSecurity</bsvc:System_ID>
+                    <bsvc:System_ID>{integration["id"]}</bsvc:System_ID>
                 </bsvc:Integration_System_Reference>
             </bsvc:Integration_System_Get>
         </soapenv:Body>

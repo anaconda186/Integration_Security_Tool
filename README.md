@@ -4,10 +4,10 @@ This tool will add security to the ISSG of a selected Integration. It will read 
 
 ## TODO
 ### Functionality
-- [ ] User input Integration ID
-- [ ] Get Integration System (Web Service)
+- [X] User input Integration ID
+- [X] Get Integration System (Web Service)
 - [ ] If ISU and ISSG Found
-    - [ ] Extract ISU
+    - [X] Extract ISU
     - [ ] Get ISU (Web Service)
     - [ ] Extract ISSG
     - [ ] Get ISSG (Web Service)
@@ -29,4 +29,4 @@ This tool will add security to the ISSG of a selected Integration. It will read 
 - [ ] Add ISSG to Security
     - [ ] get current Security Domain Config (Web Service)
     - [ ] Add ISSG to current config (Do not overwrite anything!!!)
-    - [ ] Submit Security Domain (Web Service)
+    - [X] Submit Security Domain (Web Service)
