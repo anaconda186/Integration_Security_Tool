@@ -1,4 +1,5 @@
 import requests
+import xml.etree.ElementTree as ET
 
 
 def create_isu(integration: dict[str, str], credentials: dict[str, str]) -> str:
@@ -149,7 +150,7 @@ def put_security_domain(
 
 def getIntegrationSystem(
     integration: dict[str, str], credentials: dict[str, str]
-) -> str:
+) -> ET.Element:
 
     header: dict[str, str] = {"content-type": "text/xml"}
     request: str = f"""<?xml version="1.0" encoding="utf-8"?>
@@ -169,7 +170,7 @@ def getIntegrationSystem(
         <soapenv:Body>
             <bsvc:Integration_System_Get bsvc:version="v39.0">
                 <bsvc:Integration_System_Reference>
-                    <bsvc:System_ID>{integration["id"]}</bsvc:System_ID>
+                    <bsvc:System_ID>INTXXXAGWTestSecurity</bsvc:System_ID>
                 </bsvc:Integration_System_Reference>
             </bsvc:Integration_System_Get>
         </soapenv:Body>
@@ -179,5 +180,7 @@ def getIntegrationSystem(
         data=request,
         headers=header,
     )
-    requestText: str = r.text
-    return requestText
+    print(r.text)
+    tree: ET.Element = ET.fromstring(r.text)
+
+    return tree
