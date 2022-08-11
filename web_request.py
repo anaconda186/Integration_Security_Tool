@@ -1,6 +1,4 @@
-from email import header
 import requests
-import main
 
 
 def create_isu(integration: dict[str, str], credentials: dict[str, str]) -> str:
@@ -129,7 +127,7 @@ def put_security_domain(
                 <wd:Domain_Security_Policy_Data>
                     <wd:Domain_Reference>
                         <!--Zero or more repetitions:-->
-                        <wd:ID wd:type="WID">7e67cc352b4710000fcb32d1dac80013</wd:ID>
+                        <wd:ID wd:type="WID">{security_domain["WID"]}</wd:ID>
                     </wd:Domain_Reference>
                     <wd:Domain_Name>Student Data: Academic Data</wd:Domain_Name>
                     <wd:Disabled>1</wd:Disabled>
@@ -149,10 +147,11 @@ def put_security_domain(
     return request
 
 
-def getIntSys(integration: dict[str, str], credentials: dict[str, str]) -> str:
-    import xml.etree.ElementTree as ET
+def getIntegrationSystem(
+    integration: dict[str, str], credentials: dict[str, str]
+) -> str:
 
-    header = {"content-type": "text/xml"}
+    header: dict[str, str] = {"content-type": "text/xml"}
     request: str = f"""<?xml version="1.0" encoding="utf-8"?>
     <soapenv:Envelope
         xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
@@ -170,12 +169,12 @@ def getIntSys(integration: dict[str, str], credentials: dict[str, str]) -> str:
         <soapenv:Body>
             <bsvc:Integration_System_Get bsvc:version="v39.0">
                 <bsvc:Integration_System_Reference>
-                    <bsvc:System_ID>INTXXXAGWTestSecurity</bsvc:System_ID>
+                    <bsvc:System_ID>{integration["id"]}</bsvc:System_ID>
                 </bsvc:Integration_System_Reference>
             </bsvc:Integration_System_Get>
         </soapenv:Body>
     </soapenv:Envelope>"""
-    r = requests.post(
+    r: requests.Response = requests.post(
         "https://wd2-impl-services1.workday.com/ccx/service/invisors_dpt1/Integration/v39.0",
         data=request,
         headers=header,

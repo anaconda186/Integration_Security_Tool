@@ -2,6 +2,7 @@
     "cSpell.words": [
         "bsvc",
         "ISSG",
+        "soapenv",
         "wsse"
     ],
     "python.linting.pylamaEnabled": false,
