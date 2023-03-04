@@ -148,8 +148,8 @@ def put_security_domain(
     return request
 
 
-def getIntegrationSystem(
-    integration: dict[str, str], credentials: dict[str, str]
+def getSecurityGroup(
+    securityGroup: dict[str, str], credentials: dict[str, str]
 ) -> ET.Element:
 
     header: dict[str, str] = {"content-type": "text/xml"}
@@ -168,12 +168,19 @@ def getIntegrationSystem(
             </wsse:Security>
         </soapenv:Header>
         <soapenv:Body>
-            <bsvc:Integration_System_Get bsvc:version="v39.0">
-                <bsvc:Integration_System_Reference>
-                    <bsvc:System_ID>{integration["id"]}</bsvc:System_ID>
-                </bsvc:Integration_System_Reference>
-            </bsvc:Integration_System_Get>
-        </soapenv:Body>
+      <bsvc:Get_Integration_System_Security_Groups__Unconstrained__Request>
+         <bsvc:Request_References>
+            <bsvc:Integration_System_Security_Group__Unconstrained__Reference>
+                <bsvc:ID bsvc:type="?">?</bsvc:ID>
+            </bsvc:Integration_System_Security_Group__Unconstrained__Reference>
+         </bsvc:Request_References>
+         <bsvc:Response_Group>
+            <!--Optional:-->
+            <bsvc:Include_Reference>true</bsvc:Include_Reference>
+         </bsvc:Response_Group>
+      </bsvc:Get_Integration_System_Security_Groups__Unconstrained__Request>
+   </soapenv:Body>
+
     </soapenv:Envelope>"""
     r: requests.Response = requests.post(
         "https://wd2-impl-services1.workday.com/ccx/service/invisors_dpt1/Integration/v39.0",

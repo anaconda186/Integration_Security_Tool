@@ -6,10 +6,13 @@
         "soapenv",
         "wsse"
     ],
-    "python.linting.pylamaEnabled": false,
-    "python.linting.flake8Enabled": true,
+    "python.linting.pylamaEnabled": true,
+    "python.linting.flake8Enabled": false,
     "python.linting.enabled": true,
     "python.linting.flake8Args": [
         "--ignore=E501",
+    ],
+    "python.linting.pylamaArgs": [
+        "--ignore=E501"
     ]
 }

@@ -1,6 +1,6 @@
 # Integration_Security_Tool
 ## Description
-This tool will add security to the ISSG of a selected Integration. It will read date from the integration, determine what security is needed and will at the ISSG to the required domains. If an ISU or ISSG is not found on the integration it will create and add to the Integration
+This tool will add security to the ISSG of a selected Integration. It will read data from the integration, determine what security is needed and will at the ISSG to the required domains. If an ISU or ISSG is not found on the integration it will create and add to the Integration
 
 ## TODO
 ### Functionality
