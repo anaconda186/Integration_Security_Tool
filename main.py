@@ -1,42 +1,28 @@
-import sys
-import getopt
 import web_request
 import xml.etree.ElementTree as ET
+from parse_args import parse_args
+from get_credentials import get_credentials
 
 
 def main() -> int:
-    opts: list[tuple[str, str]] = getopt.getopt(sys.argv[1:], "v", ['verbose'])[0]
-    verbose: bool = False
-    print(opts)
-    for opt, arg in opts:
-        if opt == '-v':
-            verbose = True
-    if verbose:
-        print('Verbose mode on')
-    SecurityGroupID: str = input(
-        "What Security Group would you like to look at? Enter Integration Security Group Unconstrained ID: "
+    arg_dict, user_name, password = parse_args()
+    credentials: dict[str, str] = get_credentials(arg_dict, user_name, password)
+    security_group_id: str = input(
+        "What Security Group would you like to look at? Enter Integration Security Group Unconstrgained ID: "
     )
-    password: str = input("Input Password: ")
-    userName: str = input("Input UserName: ")
-    securityGroup: dict[str, str] = {"securityGroup": SecurityGroupID}
-    credentials: dict[str, str] = {
-        "username": userName,
-        "password": password,
-        "tenant": "invisors_dpt1",
-        "data center": "wd2",
-    }
-    response: ET.Element = web_request.getSecurityGroup(securityGroup, credentials)
-    ISUName: str | None = None
+    security_group: dict[str, str] = {"security_group": security_group_id}
+    response: ET.Element = web_request.get_security_group(security_group, credentials)
+    isu_name: str | None = None
     for element in response.iter():
-        ISUElement: ET.Element | None = element.find(
-            ".//{urn:com.workday/bsvc}User_Name"
+        isu_element: ET.Element | None = element.find(
+            ".//{urn:com.workday/bsvc}Integration_System_User_Reference"
         )
-        if ISUElement is not None:
-            ISUName: str | None = ISUElement.text
-            print(ISUName)
-            print(element)
+        if isu_element is not None:
+            isu_name: str | None = isu_element.attrib[
+                "{urn:com.workday/bsvc}Descriptor"
+            ]
             break
-    if ISUName is None:
+    if isu_name is None:
         return 1
 
     return 0

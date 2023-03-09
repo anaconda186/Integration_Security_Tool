@@ -13,9 +13,9 @@ This tool will migrate a user defined ISSG and its attached ISU from the source 
 - [ ] Check Destination Tenant 
     - [X] Get ISU (Web Service)
     - [X] Get ISSG (Web Service)
-    If Not Found
-    - [ ] Create ISU (Web Service)
-    - [ ] Create ISSG (Web Service)
+    - [ ] If Not Found
+        - [ ] Create ISU (Web Service)
+        - [ ] Create ISSG (Web Service)
 - [ ] Add ISSG to Security
     - [ ] get Security Domain Config (Web Service) from Source Tenant
     - [ ] Add ISSG to Security Domain Config (Do not overwrite anything!!!) in Destination
